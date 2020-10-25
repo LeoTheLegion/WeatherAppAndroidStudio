@@ -53,11 +53,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/map"
@@ -71,13 +67,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.25"
+            android:autoText="false"
             android:ems="10"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="Name"
+            app:autoSizeMinTextSize="8px"
+            app:autoSizeTextType="uniform" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".75"
             android:orientation="horizontal">
@@ -91,43 +90,55 @@
 
                 <TextView
                     android:id="@+id/Temp_High"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.25"
+                    android:autoText="false"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    app:autoSizeMinTextSize="8px"
+                    app:autoSizeTextType="uniform" />
 
                 <TextView
                     android:id="@+id/Temp_Low"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.25"
+                    android:autoText="false"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    app:autoSizeMinTextSize="8px"
+                    app:autoSizeTextType="uniform" />
 
                 <TextView
                     android:id="@+id/Temp_Feels_Like"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.25"
+                    android:autoText="false"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    app:autoSizeMinTextSize="8px"
+                    app:autoSizeTextType="uniform" />
 
                 <TextView
                     android:id="@+id/Temp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.25"
+                    android:autoText="false"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    app:autoSizeMinTextSize="8px"
+                    app:autoSizeTextType="uniform" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,43 +151,55 @@
 
                 <TextView
                     android:id="@+id/humidity"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.25"
+                    android:autoText="false"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    app:autoSizeMinTextSize="8px"
+                    app:autoSizeTextType="uniform" />
 
                 <TextView
                     android:id="@+id/WindDeg"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.25"
+                    android:autoText="false"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    app:autoSizeMinTextSize="8px"
+                    app:autoSizeTextType="uniform" />
 
                 <TextView
                     android:id="@+id/WindSpeed"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.25"
+                    android:autoText="false"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    app:autoSizeMinTextSize="8px"
+                    app:autoSizeTextType="uniform" />
 
                 <TextView
                     android:id="@+id/cloudness"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.25"
+                    android:autoText="false"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    app:autoSizeMinTextSize="8px"
+                    app:autoSizeTextType="uniform" />
             </LinearLayout>
 
         </LinearLayout>

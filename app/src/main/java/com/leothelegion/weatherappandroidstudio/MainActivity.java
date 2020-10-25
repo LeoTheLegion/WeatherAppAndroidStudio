@@ -9,14 +9,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private GoogleMap mMap;
+    private double lat;
+    private double lon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,24 +63,27 @@ public class MainActivity extends FragmentActivity {
         JSONArray weather = json.getJSONArray("weather");
         JSONObject main = json.getJSONObject("main");
         JSONObject wind = json.getJSONObject("wind");
-        JSONObject clouds = json.getJSONObject("clouds");
         JSONObject sys = json.getJSONObject("sys");
 
+        double temp = K_to_F(main.getDouble("temp"));
+        double temp_feelsLike = K_to_F(main.getDouble("feels_like"));
+        double temp_L = K_to_F(main.getDouble("temp_min"));
+        double temp_H = K_to_F(main.getDouble("temp_max"));
 
         ((TextView) findViewById(R.id.location)).setText(
                 json.getString("name") + "," + sys.getString("country")
         );
         ((TextView) findViewById(R.id.Temp)).setText(
-                "Current Temp : "+main.getString("temp")
+                "Current Temp : "+ (int)temp + "F"
         );
         ((TextView) findViewById(R.id.Temp_Feels_Like)).setText(
-                "Feels Like : "+main.getString("feels_like")
+                "Feels Like : "+(int)temp_feelsLike + "F"
         );
         ((TextView) findViewById(R.id.Temp_Low)).setText(
-                "Low Temp : " + main.getString("temp_min")
+                "Low Temp : " + (int)temp_L + "F"
         );
         ((TextView) findViewById(R.id.Temp_High)).setText(
-                "High Temp : " + main.getString("temp_max")
+                "High Temp : " + (int)temp_H + "F"
         );
         ((TextView) findViewById(R.id.humidity)).setText(
                 "Humidity : " + main.getString("humidity")
@@ -86,6 +97,31 @@ public class MainActivity extends FragmentActivity {
         ((TextView) findViewById(R.id.cloudness)).setText(
                 weather.getJSONObject(0).getString("description")
         );
+
+        lat = coord.getDouble("lat");
+        lon = coord.getDouble("lon");
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        LatLng point = new LatLng(lat, lon);
+        mMap.addMarker(new MarkerOptions().position(point).title("Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
+        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+    }
+
+    ///////////////////////HELPER FUNCTIONS///////////////////////
+    double K_to_F(double k){
+        double a = k - 273.15;
+        double b = a * 9 / 5;
+        double c = b + 32;
+        return c;
     }
 
     void createAlert(String message){
@@ -94,5 +130,6 @@ public class MainActivity extends FragmentActivity {
         alert.setPositiveButton("Ok",null);
         alert.show();
     }
+
 
 }

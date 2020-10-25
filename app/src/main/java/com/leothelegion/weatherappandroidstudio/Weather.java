@@ -20,4 +20,6 @@ public class Weather {
         return "q="+ input;
     }
 
+
+
 }
