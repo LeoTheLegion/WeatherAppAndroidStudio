@@ -83,9 +83,16 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         double temp_L = K_to_F(main.getDouble("temp_min"));
         double temp_H = K_to_F(main.getDouble("temp_max"));
 
-        ((TextView) findViewById(R.id.location)).setText(
-                json.getString("name") + "," + sys.getString("country")
-        );
+        try{
+            ((TextView) findViewById(R.id.location)).setText(
+                    json.getString("name") + "," + sys.getString("country")
+            );
+        }catch (Exception e){
+            ((TextView) findViewById(R.id.location)).setText(
+                    "Unknown Location"
+            );
+        }
+
         ((TextView) findViewById(R.id.Temp)).setText(
                 "Current Temp : "+ (int)temp + "F"
         );
@@ -102,10 +109,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 "Humidity : " + main.getString("humidity")
         );
         ((TextView) findViewById(R.id.WindDeg)).setText(
-                "Wind Direction : " + wind.getString("deg")
+                "Wind Degree : " + wind.getString("deg")
         );
         ((TextView) findViewById(R.id.WindSpeed)).setText(
-                "Wind Speed : " + wind.getString("speed")
+                "Wind Speed : " + wind.getString("speed") + "mph"
         );
         ((TextView) findViewById(R.id.cloudness)).setText(
                 weather.getJSONObject(0).getString("description")

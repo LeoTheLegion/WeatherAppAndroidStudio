@@ -17,9 +17,50 @@ public class Weather {
     }
 
     private static String GenerateQuery(String input) {
+
+        if(isLatLong(input)){
+            String[] a = input.split(",");
+            return "lat=" + a[0] + "&lon=" + a[1];
+        }
+
+        if(isZipcode(input)){
+            return "zip="+ input + ",us";
+        }
+
         return "q="+ input;
     }
 
+    private static boolean isZipcode(String input){
+        try{
+            Integer.parseInt(input);
+        }catch (NumberFormatException e){
+            return false;
+        }
 
+        if(input.length() != 5)
+            return false;
+
+        return true;
+    }
+
+    private static boolean isLatLong(String input){
+        String[] a = input.split(",");
+        if(a.length != 2)
+            return false;
+
+        try{
+            Integer.parseInt(a[0]);
+        }catch (NumberFormatException e){
+            return false;
+        }
+
+        try{
+            Integer.parseInt(a[1]);
+        }catch (NumberFormatException e){
+            return false;
+        }
+
+        return true;
+    }
 
 }
