@@ -9,6 +9,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
+
 
 public class SimpleRequest {
 
@@ -27,7 +29,12 @@ public class SimpleRequest {
                 @Override
                 public void onResponse(String response) {
                     // Display the first 500 characters of the response string.
-                    callback.onSuccess(response);
+
+                    try {
+                        callback.onSuccess(response);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             },
             new com.android.volley.Response.ErrorListener() {
@@ -58,7 +65,7 @@ public class SimpleRequest {
     }
 
     public interface Response{
-        public void onSuccess(String response);
+        public void onSuccess(String response) throws JSONException;
         public  void onError(String error);
     }
 }
