@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentActivity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,6 +22,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -30,6 +37,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, getOptions());
+        AutoCompleteTextView input = (AutoCompleteTextView)
+                findViewById(R.id.input);
+        input.setAdapter(adapter);
     }
 
     public void GetWeather(View view){
@@ -115,6 +128,28 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
     }
+
+    String[] getOptions(){
+        String[] options = null;
+        try {
+            JSONObject reader = JSONAssetReader.getJsonObjectFromFile(
+                    "world-cities_json.json",this);
+            JSONArray worldcities = reader.getJSONArray("value").getJSONArray(0);
+
+            options = new String[worldcities.length()];
+
+            for (int i = 0; i < worldcities.length();i++){
+                JSONObject city = worldcities.getJSONObject(i);
+                options[i] = (city.getString("name") + "," + city.getString("country"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return options;
+    }
+
 
     ///////////////////////HELPER FUNCTIONS///////////////////////
     double K_to_F(double k){
