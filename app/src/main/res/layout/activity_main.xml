@@ -35,6 +35,7 @@
             android:adjustViewBounds="false"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:cropToPadding="false"
+            android:onClick="GetWeatherByGPS"
             android:scaleType="fitXY"
             android:src="@drawable/gps_target"
             android:text="Button"

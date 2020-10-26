@@ -49,13 +49,13 @@ public class Weather {
             return false;
 
         try{
-            Integer.parseInt(a[0]);
+            Float.parseFloat(a[0]);
         }catch (NumberFormatException e){
             return false;
         }
 
         try{
-            Integer.parseInt(a[1]);
+            Float.parseFloat(a[1]);
         }catch (NumberFormatException e){
             return false;
         }

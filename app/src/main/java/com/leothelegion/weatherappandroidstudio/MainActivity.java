@@ -1,9 +1,12 @@
 package com.leothelegion.weatherappandroidstudio;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,6 +46,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         AutoCompleteTextView input = (AutoCompleteTextView)
                 findViewById(R.id.input);
         input.setAdapter(adapter);
+
+        AskForLocationPermisson();
     }
 
     public void GetWeather(View view){
@@ -68,7 +73,32 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
         );
+    }
 
+    public void GetWeatherByGPS(View view){
+        double lat,lon;
+
+        GPSTracker gps = new GPSTracker(this);
+
+        // check if GPS enabled
+        if(gps.canGetLocation()){
+            gps.getLocation();
+            lat = gps.getLatitude();
+            lon = gps.getLongitude();
+        }else{
+            gps.showSettingsAlert();
+            return;
+        }
+
+        EditText inputField = (EditText) findViewById(R.id.input);
+        inputField.setText(lat + "," + lon);
+
+        GetWeather(view);
+    }
+
+    private void AskForLocationPermisson() {
+        if(!checkLocationPermission())
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
     private void updateWeatherPage(JSONObject json) throws JSONException {
@@ -171,6 +201,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         alert.setMessage(message);
         alert.setPositiveButton("Ok",null);
         alert.show();
+    }
+
+    public boolean checkLocationPermission()
+    {
+        String permission = "android.permission.ACCESS_FINE_LOCATION";
+        int res = this.checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
     }
 
 
