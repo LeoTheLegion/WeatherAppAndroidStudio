@@ -41,6 +41,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setResultGUIVisibilityTo(View.INVISIBLE);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, getOptions());
         AutoCompleteTextView input = (AutoCompleteTextView)
@@ -48,6 +50,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         input.setAdapter(adapter);
 
         AskForLocationPermisson();
+    }
+
+    private void setResultGUIVisibilityTo(int x) {
+        findViewById(R.id.data).setVisibility(x);
+        findViewById(R.id.map).setVisibility(x);
     }
 
     public void GetWeather(View view){
@@ -154,6 +161,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        setResultGUIVisibilityTo(View.VISIBLE);
     }
 
     @Override
